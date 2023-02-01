@@ -1,0 +1,84 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+
+.form-container{
+    flex-basis: 66.66%;
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+}
+.cardform{
+    display: flex;
+    flex-direction: column;
+    width:40rem;
+    margin-left:32rem;
+}
+
+.formgroup{
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+}
+
+.formfield{
+    display: flex;
+    flex-direction: column;
+    margin:1rem 0;
+
+
+    &__label{
+        font-size: 1.2rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        color:$veryDarkViolet;
+    }
+    &__input{
+        padding: 1rem 1.5rem;
+        border-radius: 5px;
+        border: solid 1px $light_grayish_violet;
+        font-size: 1.8rem;
+
+        &::placeholder{
+            font-family:'Space Grotesk', 'san serif';
+            color:$light_grayish_violet;
+        }
+    }
+
+    // &:last-child{
+    //     // flex-basis: 45%;
+    // }
+}
+
+.formfield__group{
+    display: flex;
+
+    // flex: 0 1 auto;
+}
+
+.date{
+    width:20%;
+    margin-right: 1rem;
+
+    &:last-child{
+        margin-right: 2.5rem;
+    }
+}
+.cvc{
+    width:auto;
+}
+
+.btn{
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    margin-top: 2rem;
+    font-size: 1.8rem;
+    font-family:'Space Grotesk', 'san serif';
+    font-weight: 500;
+
+    &__black{
+        color:$white;
+        background-color: $veryDarkViolet;
+
+    }
+}

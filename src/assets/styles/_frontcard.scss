@@ -1,0 +1,75 @@
+@import 'variables.scss';
+
+.frontcard{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    top:18%;
+    left:10%;
+    width: 42.5rem;
+    height: 22.5rem;
+    background-image: url('../images/bg-card-front.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 1rem;
+    z-index: 200;
+    color:$white;
+
+    &__header{
+        margin-bottom: 8rem;
+        width:10rem;
+           }
+    &__main{
+        margin-bottom: 4rem;
+        display: flex;
+    }
+    &__footer{
+        display: flex;
+        justify-content: space-between;
+        letter-spacing: 1.5px;
+        font-weight: 300;
+        &-name{
+            text-transform: uppercase;
+
+        }
+        &-date{
+            display: flex;
+        }
+
+    }
+}
+.logobox{
+    display: flex;
+    width: 6rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    position: relative;
+    display: block;
+    width:3.5rem;
+    height:3.5rem;
+    border-radius: 50%;
+    background-color: $white;
+
+}
+
+.logoExtra{
+    display: block;
+        width:1.5rem;
+        height:1.5rem;
+        border-radius: 50%;
+        border: 1px solid $white;
+}
+
+.numbergroup{
+    display:flex;
+    margin-right:2rem;
+    font-size: 3.2rem;
+
+    &-number{
+        margin-right: 2.5px;
+    }
+}

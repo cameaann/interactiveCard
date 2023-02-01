@@ -1,13 +1,9 @@
-import CardForm from './components/cardform';
-
+import CardDetails from "./components/carddetails";
 
 function App() {
   return (
     <div className="container-wrapper">
-      <div className="main">
-          <div className="leftside"></div>
-          <CardForm/>
-      </div>
+        <CardDetails/>
     </div>
   );
 }
