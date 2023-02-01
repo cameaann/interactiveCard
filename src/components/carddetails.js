@@ -19,7 +19,7 @@ render(){
         <div className="main">
         <FrontCard card = { carddetails } />
         <div className="leftside"></div>
-        <CardForm  cdetails = { this.state }  />
+        <CardForm  cdetails = { carddetails }  />
         </div>
     )
 }

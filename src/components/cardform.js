@@ -2,14 +2,18 @@ import React from 'react';
 export default class CardForm extends React.Component {
     constructor(props) {
         super(props);
-        let currentState = props.cdetails;
-        this.state = {}
+        // let currentState = props.cdetails;
+        this.state = {
+            userName: ""
+        }
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleCardHolderChange = this.handleCardHolderChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
+        console.log(event);
         this.setState({ value: event.target.value });
         console.log(this.state);
     }
@@ -19,12 +23,13 @@ export default class CardForm extends React.Component {
         console.log(this.state);
     }
 
+    handleCardHolderChange(event) {
+        this.setState({ userName: event.target.value });
+        console.log(this.state);
+    }
+
     render() {
-        let cardHolderName = document.getElementsByName("cvName");
-        let cardNumber = document.getElementsByName("cvNumber");
-        let month = document.getElementsByName("month");
-        let year = document.getElementsByName("year");
-        let cvc = document.getElementsByName("cvc");
+        // let cardHolderName = document.getElementsByName("cvName");
 
         return (
             <div className="form-container">
@@ -33,7 +38,7 @@ export default class CardForm extends React.Component {
                         <label className="formfield__label">
                             Cardholder name
                         </label>
-                        <input type="text" className="formfield__input" name="cvName" placeholder="e.g. Jane Appleseed" onChange={this.handleChange} />
+                        <input type="text" className="formfield__input" name="cvName" placeholder="e.g. Jane Appleseed" onChange={this.handleCardHolderChange} />
                     </div>
                     <div className="formfield">
                         <label className="formfield__label">
