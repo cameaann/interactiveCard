@@ -1,6 +1,6 @@
 {
   "name": "interactive-card",
-  "home":".",
+  "home":"interactiveCard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
