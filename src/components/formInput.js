@@ -1,12 +1,6 @@
-// import { useContext } from 'react';
-// import { FormContext } from './cardform';
 
 export default function FormInput(props) {
-  const { label, type = "text", name, className, placeholder, onChange, value } = props;
-
-  // const formContext = useContext(FormContext);
-  // const { form, handleFormChange } = formContext;
-  // console.log(form);
+  const { label, type = "text", name, className, value, onChange, placeholder, maxlength } = props;
 
   return (
     <div className="formfield">
@@ -18,6 +12,7 @@ export default function FormInput(props) {
         value={value}
         placeholder = {placeholder}
         onChange={onChange}
+        maxLength = { maxlength }
       />
     </div>
   );

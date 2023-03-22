@@ -1,40 +1,33 @@
 import React from "react";
-import { useState } from "react";
-import CardForm, { FormContext } from "./cardform";
+import { createContext,  useState } from "react";
+import CardForm from "./cardform";
 import FrontCard from "./frontcard";
 
+export const CurrentCardContext = createContext(null);
+
 export default function CardDetails() {
-
-
-
-  const [form, setform] = useState({
-    cardHolderName: "Jane Appleseed",
-    cardNumber: "1234 5678 9123 0000",
-    month: "02",
-    year: "22",
-    cvc: "123",
+//   const [currentCard, setCurrentCard] = useState(null);
+const [currentCard, setCurrentCard] = useState({
+    cardholder: "Jane Appleseed",
+    cardnumber: "0000 0000 0000 0000",
+    month: "00",
+    year: "00",
+    cvc: "000",
   });
 
+
   return (
-    // <FormContext.Provider
-    //   value={{
-    //     handleFormChange: () => {},
-    //     FrontCard,
-    //   }}
-    // >
+    <CurrentCardContext.Provider
+      value={{
+        currentCard, setCurrentCard
+      }}
+    >
       <div className="main">
-        <FrontCard card={form} />
+        <FrontCard card={currentCard} />
         <div className="leftside"></div>
         <CardForm
-          formInitialValues={{
-            cardHolderName: "Jane Appleseed",
-            cardNumber: "1234 5678 9123 0000",
-            month: "02",
-            year: "22",
-          cvc: "123",
-          }}
         />
       </div>
-    // </FormContext.Provider>
+    </CurrentCardContext.Provider>
   );
 }

@@ -12,12 +12,12 @@ export default function FrontCard(props){
             </div>
             <div className="frontcard__main">
             <div className="numbergroup">
-                {card.cardNumber}
+                {card.cardnumber}
             </div>
 
             </div>
             <div className="frontcard__footer">
-                <div className="frontcard__footer-name">{card.cardHolderName}</div>
+                <div className="frontcard__footer-name">{card.cardholder}</div>
                 <div className="frontcard__footer-date">{card.month +'/'+ card.year}</div>
             </div>
 
