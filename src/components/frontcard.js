@@ -1,3 +1,5 @@
+import { formatCardNumber } from "./formatCardNumber";
+
 export default function FrontCard(props){
 
     let card = props.card;
@@ -12,7 +14,7 @@ export default function FrontCard(props){
             </div>
             <div className="frontcard__main">
             <div className="numbergroup">
-                {card.cardnumber}
+                { formatCardNumber(card.cardnumber) }
             </div>
 
             </div>

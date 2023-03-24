@@ -9,7 +9,7 @@ export default function CardDetails() {
 //   const [currentCard, setCurrentCard] = useState(null);
 const [currentCard, setCurrentCard] = useState({
     cardholder: "Jane Appleseed",
-    cardnumber: "0000 0000 0000 0000",
+    cardnumber: "0000000000000000",
     month: "00",
     year: "00",
     cvc: "000",

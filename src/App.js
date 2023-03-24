@@ -1,10 +1,11 @@
+import React from "react";
 import CardDetails from "./components/carddetails";
 
-function App() {
+const App = ()=> {
   return (
-
+    <div>
         <CardDetails/>
-
+    </div>
   );
 }
 
