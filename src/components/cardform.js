@@ -1,22 +1,58 @@
 import React from "react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { CurrentCardContext } from "./carddetails";
-import { formatCardNumber } from "./formatCardNumber";
+import { isValid } from "./formatCardNumber";
+import { formatCardNumberInput } from "./formatCardNumber";
+
 
 export default function CardForm() {
   const { currentCard, setCurrentCard } = useContext(CurrentCardContext);
+  const [cardNumber, setCardNumber] = useState('');
+  // const { submitted, setSubmitted } = useState(false);
 
   const handleSubmit = () => {};
 
+  const numFormat = (e) => {
+    let val = e.data;
+
+    let re = /^\d+$/;
+    if (!val.match(re)) {
+      console.log("Wrong format, numbers only");
+      e.preventDefault();
+    }
+
+  };
+
+
   const handleFormChange = (event) => {
-    const { name, value } = event.target;
+
+    let { name, value, selectionStart } = event.target;
+
+      if(name === "cardnumber"){
+      let { formattedNumber, cursor } = formatCardNumberInput(event.target.value, selectionStart);
+      // let cursorPlace = selectionStart;
+  
+      requestAnimationFrame(() => event.target.setSelectionRange(cursor, cursor));
+
+      setCardNumber(formattedNumber);
+
+    }
 
     const updatedForm = {
       ...currentCard,
       [name]: value,
     };
+     if(name === "cardnumber"){
+      updatedForm[name]= [...value].filter(x=> x!==" ").join('');
+     }
+    const valid = isValid(name, value);
 
-    setCurrentCard(updatedForm);
+    if (valid) {
+      setCurrentCard(updatedForm);
+      return;
+    } else {
+      // console.log(valid);
+    }
   };
 
   return (
@@ -32,19 +68,28 @@ export default function CardForm() {
             value={currentCard.value}
             onChange={handleFormChange}
           />
+          <span className="input-error ">Please enter a name</span>
         </div>
         <div className="formfield">
           <label className="formfield__label">Card number</label>
           <input
+            id="cnumber"
             label="Card number"
             name="cardnumber"
             className="formfield__input cardnumber"
             placeholder="e.g. 1234 5678 9123 0000"
-            value={currentCard.value}
-            maxLength="16"
+            maxLength="19"
+            value = {cardNumber}
+            onBeforeInput={numFormat}
             onChange={handleFormChange}
           />
+          <span className="input-error">Wrong format, numbers only</span>
         </div>
+
+        {/* <input type="text" ref={inputNumber} onChange= { handleChange }/> */}
+
+
+
         <div className="formgroup">
           <div className="formfield">
             <label className="formfield__label">Exp. date (mm/yy)</label>
@@ -66,6 +111,7 @@ export default function CardForm() {
                 onChange={handleFormChange}
               />
             </div>
+            <span className="input-error">Can't be blank</span>
           </div>
           <div className="formfield">
             <label className="formfield__label">CVC</label>
@@ -76,6 +122,7 @@ export default function CardForm() {
               placeholder="e.g. 123"
               onChange={handleFormChange}
             />
+            <span className="input-error">Can't be blank</span>
           </div>
         </div>
         <button type="submit" className="btn btn__black">

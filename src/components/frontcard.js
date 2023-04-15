@@ -15,6 +15,7 @@ export default function FrontCard(props){
             <div className="frontcard__main">
             <div className="numbergroup">
                 { formatCardNumber(card.cardnumber) }
+
             </div>
 
             </div>
