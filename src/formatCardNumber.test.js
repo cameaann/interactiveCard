@@ -1,4 +1,4 @@
-import { formatCardNumberInput, formatCardNumber, IsNumber } from "./components/formatCardNumber";
+import { formatCardNumberInput, formatCardNumber, IsNumber, ChangeNumber } from "./components/formatCardNumber";
 
 describe("formatCardNumberInput", () => {
   test("should return 0000000000000000 formatted by groups", () => {
@@ -29,8 +29,15 @@ describe("formatCardNumber", () => {
       "1234 1234 1234 1230"
     );
   });
+});
 
-
+describe("ChangeNumber", () => {
+  test("should delete one number and insert another one in the same place", () => {
+    expect(ChangeNumber("2222 2422 2222 2222", "5", "6")).toEqual({
+      number: "2222 2522 2222 2222",
+      cursorPlace: "6"
+    });
+  });
 });
 
 

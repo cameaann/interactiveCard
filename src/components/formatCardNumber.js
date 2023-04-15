@@ -14,6 +14,7 @@ export  function formatCardNumber(val){
 
 export function formatCardNumberInput(val, cursorPlace) {
 
+  console.log(val, cursorPlace);
   // let input = val.replace(/\D/g, "");
 
   let formattedInput = [];
@@ -59,6 +60,18 @@ export function isValid(name, value){
         case 'month': return value.match(/1-12/);
         default: return console.log("Something is wrong");
     }
+}
+
+export function ChangeNumber(val, num, cursorPlace){
+
+  let input = [...val];
+
+  input[cursorPlace] = num;
+  console.log(input);
+  return {
+    cursorPlace: cursorPlace,
+    number: input.join('')
+  }
 
 }
 
