@@ -4,10 +4,9 @@ import { CurrentCardContext } from "./carddetails";
 import { isValid } from "./formatCardNumber";
 import { formatCardNumberInput } from "./formatCardNumber";
 
-
 export default function CardForm() {
   const { currentCard, setCurrentCard } = useContext(CurrentCardContext);
-  const [cardNumber, setCardNumber] = useState('');
+  const [cardNumber, setCardNumber] = useState("");
   // const { submitted, setSubmitted } = useState(false);
 
   const handleSubmit = () => {};
@@ -20,38 +19,34 @@ export default function CardForm() {
       console.log("Wrong format, numbers only");
       e.preventDefault();
     }
-
   };
 
-
   const handleFormChange = (event) => {
-
     let { name, value, selectionStart } = event.target;
-
-      if(name === "cardnumber"){
-      let { formattedNumber, cursor } = formatCardNumberInput(event.target.value, selectionStart);
-      // let cursorPlace = selectionStart;
-  
-      requestAnimationFrame(() => event.target.setSelectionRange(cursor, cursor));
-
-      setCardNumber(formattedNumber);
-
-    }
 
     const updatedForm = {
       ...currentCard,
       [name]: value,
     };
-     if(name === "cardnumber"){
-      updatedForm[name]= [...value].filter(x=> x!==" ").join('');
-     }
+
+    if (name === "cardnumber") {
+      let { number, cursor } = formatCardNumberInput(
+        value,
+        selectionStart
+      );
+      requestAnimationFrame(() =>
+        event.target.setSelectionRange(cursor, cursor)
+      );
+
+      setCardNumber(number);
+      updatedForm[name] = number.replaceAll(" ", "");
+    }
+
     const valid = isValid(name, value);
 
     if (valid) {
       setCurrentCard(updatedForm);
       return;
-    } else {
-      // console.log(valid);
     }
   };
 
@@ -78,17 +73,12 @@ export default function CardForm() {
             name="cardnumber"
             className="formfield__input cardnumber"
             placeholder="e.g. 1234 5678 9123 0000"
-            maxLength="19"
-            value = {cardNumber}
+            value={cardNumber}
             onBeforeInput={numFormat}
             onChange={handleFormChange}
           />
           <span className="input-error">Wrong format, numbers only</span>
         </div>
-
-        {/* <input type="text" ref={inputNumber} onChange= { handleChange }/> */}
-
-
 
         <div className="formgroup">
           <div className="formfield">

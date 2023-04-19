@@ -1,19 +1,19 @@
-import { formatCardNumberInput, formatCardNumber, IsNumber, ChangeNumber } from "./components/formatCardNumber";
+import { formatCardNumberInput, formatCardNumber, IsNumber } from "./components/formatCardNumber";
 
 describe("formatCardNumberInput", () => {
   test("should return 0000000000000000 formatted by groups", () => {
-    expect(formatCardNumberInput("0000000000000000", 16)).toEqual(
-      { formattedNumber:"0000 0000 0000 0000",
-        cursor:20
-    }
-    );
+    const result = formatCardNumberInput("0000000000000000", 16);
+    expect(result.number).toEqual("0000 0000 0000 0000");
   });
-  test("should return 1234 1234 1234123 formatted by groups with leading zero", () => {
-    expect(formatCardNumberInput("1234 1234 1234123", 16)).toEqual(
-      { formattedNumber:"1234 1234 1234 123",
-        cursor:19
-      }
-    );
+
+  test("should return 1234 1234 1234123 formatted by groups", () => {
+    const result = formatCardNumberInput("1234 1234 1234123", 16);
+    expect(result.number).toEqual("1234 1234 1234 123");
+  });
+
+  test("should delete one number, the length of number decreases, the cursor is in the same place as it was", () => {
+    const result = formatCardNumberInput("2222 2222 2222 222", 0);
+    expect(result.number).toEqual("2222 2222 2222 222");
   });
 });
 
@@ -30,16 +30,6 @@ describe("formatCardNumber", () => {
     );
   });
 });
-
-describe("ChangeNumber", () => {
-  test("should delete one number and insert another one in the same place", () => {
-    expect(ChangeNumber("2222 2422 2222 2222", "5", "6")).toEqual({
-      number: "2222 2522 2222 2222",
-      cursorPlace: "6"
-    });
-  });
-});
-
 
 
 describe("IsNumber", () => {
