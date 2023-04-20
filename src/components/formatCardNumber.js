@@ -28,7 +28,7 @@ export function formatCardNumberInput(val, cursorPlace) {
 
     if (count === 4) {
       formattedInput.push(" ");
-      cursorPlace += 1;
+      // cursorPlace += 1;
       count = 0;
     }
   }
@@ -54,6 +54,8 @@ export function isValid(name, value) {
       return true;
     case "month":
       return value.match(/1-12/);
+    case "cvc":
+      return value.match(/^\d+$/);
     default:
       return console.log("Something is wrong");
   }

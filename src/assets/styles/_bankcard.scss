@@ -7,22 +7,25 @@
     flex-direction: column;
     padding: 3rem;
     top:18%;
-    left:10%;
-    width: 42.5rem;
-    height: 22.5rem;
+    left:8%;
+    width: 35.5rem;
+    height: 17.5rem;
     background-image: url('../images/bg-card-front.png');
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 1rem;
     z-index: 200;
     color:$white;
+    -webkit-box-shadow: 5px 21px 55px 17px rgba(5,5,5,0.13);
+    -moz-box-shadow: 5px 21px 55px 17px rgba(5,5,5,0.13);
+    box-shadow: 5px 21px 55px 17px rgba(5,5,5,0.13);
 
     &__header{
-        margin-bottom: 8rem;
+        margin-bottom: 6rem;
         width:10rem;
            }
     &__main{
-        margin-bottom: 4rem;
+        margin-bottom: 3rem;
         display: flex;
     }
     &__footer{
@@ -72,5 +75,33 @@
 
     &-number{
         margin-right: 2.5px;
+    }
+}
+
+.backcard{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    top:48%;
+    left:17%;
+    width: 35.5rem;
+    height: 17.5rem;
+    background-image: url('../images/bg-card-back.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 1rem;
+    z-index: 150;
+    color:$white;
+    -webkit-box-shadow: 5px 21px 55px 17px rgba(5,5,5,0.13);
+    -moz-box-shadow: 5px 21px 55px 17px rgba(5,5,5,0.13);
+    box-shadow: 5px 21px 55px 17px rgba(5,5,5,0.13);
+    
+    &__cvc{
+        display: block;
+        position: absolute;
+        top: 44%;
+        right:10%;
+        letter-spacing: 1.5px;
     }
 }

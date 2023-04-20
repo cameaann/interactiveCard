@@ -2,6 +2,7 @@ import React from "react";
 import { createContext, useState } from "react";
 import CardForm from "./cardform";
 import FrontCard from "./frontcard";
+import BackCard from "./backcard";
 
 export const CurrentCardContext = createContext(null);
 
@@ -15,6 +16,7 @@ export default function CardDetails() {
     cvc: "000",
   });
 
+
   return (
     <CurrentCardContext.Provider
       value={{
@@ -26,6 +28,7 @@ export default function CardDetails() {
         <FrontCard card={currentCard} />
         <div className="leftside"></div>
         <CardForm />
+        <BackCard card={currentCard} />
       </div>
     </CurrentCardContext.Provider>
   );

@@ -110,6 +110,9 @@ export default function CardForm() {
               className="formfield__input cvc"
               name="cvc"
               placeholder="e.g. 123"
+              maxLength="3"
+              value={currentCard.value}
+              onBeforeInput={numFormat}
               onChange={handleFormChange}
             />
             <span className="input-error">Can't be blank</span>
