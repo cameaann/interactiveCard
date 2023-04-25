@@ -1,4 +1,4 @@
-import { formatCardNumberInput, formatCardNumber, IsNumber } from "./components/formatCardNumber";
+import { formatCardNumberInput, formatCardNumber, IsNumber, formatMonth } from "./components/formatCardNumber";
 
 describe("formatCardNumberInput", () => {
   test("should return 0000000000000000 formatted by groups", () => {
@@ -37,3 +37,24 @@ describe("IsNumber", () => {
     expect(IsNumber("0000HJUK")).toBe(false);
   });
 });
+
+describe("formatMonth", () => {
+  test("should return '12' for input of 12", ()=>{
+    expect(formatMonth(12)).toBe("12");
+  });
+  test("should return '01' for input of 1", ()=>{
+    expect(formatMonth(1)).toBe("01");
+  });
+  test("should return '02' for input of 2", ()=>{
+    expect(formatMonth(2)).toBe("02");
+  });
+  test("should return '05' for input of 15", ()=>{
+    expect(formatMonth(15)).toBe("05");
+  });
+  test("should return '12' for input of 012", ()=>{
+    expect(formatMonth('012')).toBe("12");
+  });
+  test("should return '07' for input of 77", ()=>{
+    expect(formatMonth('77')).toBe("07");
+  })
+})

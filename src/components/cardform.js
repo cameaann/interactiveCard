@@ -1,12 +1,13 @@
 import React from "react";
 import { useState, useContext } from "react";
 import { CurrentCardContext } from "./carddetails";
-import { isValid } from "./formatCardNumber";
+import { formatMonth, isValid } from "./formatCardNumber";
 import { formatCardNumberInput } from "./formatCardNumber";
 
 export default function CardForm() {
   const { currentCard, setCurrentCard } = useContext(CurrentCardContext);
   const [cardNumber, setCardNumber] = useState("");
+  const [cardMonth, setCardMonth] = useState("");
   // const { submitted, setSubmitted } = useState(false);
 
   const handleSubmit = () => {};
@@ -42,7 +43,13 @@ export default function CardForm() {
       updatedForm[name] = number.replaceAll(" ", "");
     }
 
-    const valid = isValid(name, value);
+    if(name === "month"){
+      let month = formatMonth(value);
+      setCardMonth(month);
+      updatedForm[name]=month;
+    }
+
+      const valid = isValid(name, value);
 
     if (valid) {
       setCurrentCard(updatedForm);
@@ -56,7 +63,6 @@ export default function CardForm() {
         <div className="formfield">
           <label className="formfield__label">Cardholder name</label>
           <input
-            label="Cardholder name"
             name="cardholder"
             className="formfield__input"
             placeholder="e.g. Jane Appleseed"
@@ -69,7 +75,6 @@ export default function CardForm() {
           <label className="formfield__label">Card number</label>
           <input
             id="cnumber"
-            label="Card number"
             name="cardnumber"
             className="formfield__input cardnumber"
             placeholder="e.g. 1234 5678 9123 0000"
@@ -89,7 +94,9 @@ export default function CardForm() {
                 className="formfield__input date"
                 name="month"
                 placeholder="MM"
-                maxLength="2"
+                // maxLength="2"
+                value={cardMonth}
+                // onBeforeInput={monthFormat}
                 onChange={handleFormChange}
               />
               <input
@@ -98,6 +105,7 @@ export default function CardForm() {
                 name="year"
                 placeholder="YY"
                 maxLength="2"
+                value={currentCard.value}
                 onChange={handleFormChange}
               />
             </div>

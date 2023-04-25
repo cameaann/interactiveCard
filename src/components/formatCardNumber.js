@@ -53,10 +53,29 @@ export function isValid(name, value) {
     case "cardnumber":
       return true;
     case "month":
-      return value.match(/1-12/);
+      return  value <=12 && value >0 ;
+    case "year":
+      return true;
     case "cvc":
       return value.match(/^\d+$/);
     default:
       return console.log("Something is wrong");
   }
 }
+
+export function formatMonth(val){
+  if(val.length>2){
+    val.substr(1);
+  }
+  let mon = +val;
+  if(mon<=9){
+    return "0"+mon;
+  }
+  if(mon>12){
+    return "0"+ (mon%10);
+  }
+  else{
+    return mon.toString();
+  }
+}
+

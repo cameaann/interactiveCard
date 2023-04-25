@@ -16,7 +16,6 @@ export default function CardDetails() {
     cvc: "000",
   });
 
-
   return (
     <CurrentCardContext.Provider
       value={{
