@@ -65,7 +65,7 @@ export function isValid(name, value) {
 
 export function formatMonth(val){
   if(val.length>2){
-    val.substr(1);
+    val = val.substr(1);
   }
   let mon = +val;
   if(mon<=9){
