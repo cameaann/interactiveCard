@@ -53,7 +53,7 @@ export function isValid(name, value) {
     case "cardnumber":
       return true;
     case "month":
-      return  value <=12 && value >0 ;
+      return true;
     case "year":
       return true;
     case "cvc":

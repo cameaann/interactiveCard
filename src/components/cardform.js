@@ -96,7 +96,7 @@ export default function CardForm() {
                 placeholder="MM"
                 // maxLength="2"
                 value={cardMonth}
-                // onBeforeInput={monthFormat}
+                onBeforeInput={numFormat}
                 onChange={handleFormChange}
               />
               <input
