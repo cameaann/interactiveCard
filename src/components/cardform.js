@@ -3,11 +3,22 @@ import { useState, useContext } from "react";
 import { CurrentCardContext } from "./carddetails";
 import { formatMonth, isValid } from "./formatCardNumber";
 import { formatCardNumberInput } from "./formatCardNumber";
+import { validateCardDateInput } from "./formatCardNumber";
 
 export default function CardForm() {
   const { currentCard, setCurrentCard } = useContext(CurrentCardContext);
   const [cardNumber, setCardNumber] = useState("");
   const [cardMonth, setCardMonth] = useState("");
+  const [cardYear, setCardYear] = useState("");
+  const [cardCvc, setCardCvc] = useState("");
+
+  const [formErrors, setFormErrors] = useState({cardUserValid: '', cardNumberValid:'', cardMonthValid:'', cardYearValid:'', cardCVCValid: ''})
+  const [userValid, setUserValid] = useState(true);
+  const [numberValid, setNumberValid] = useState(true);
+  const [monthValid, setMonthValid] = useState(true);
+  const [yearValid, setYearValid] = useState(true);
+  const [cvcValid, setCvcValid] = useState(true);
+
   // const { submitted, setSubmitted } = useState(false);
 
   const handleSubmit = () => {};
@@ -49,6 +60,19 @@ export default function CardForm() {
       updatedForm[name]=month;
     }
 
+    if(name === "year"){
+      setCardYear(value);
+      let dateValid = validateCardDateInput(cardMonth, value);
+      console.log(dateValid);
+      if(dateValid){
+        setYearValid(true);
+        updatedForm[name]=value;
+      }
+    }
+    if(name === "cvc"){
+      setCardCvc(value);
+    }
+
       const valid = isValid(name, value);
 
     if (valid) {
@@ -56,6 +80,28 @@ export default function CardForm() {
       return;
     }
   };
+
+  const handleOnFocusOut = ()=>{
+      let cardDate = { month: cardMonth, year: cardYear };
+      let dateValid = validateCardDateInput(cardDate);
+      if(dateValid){
+        setYearValid(true);
+        setMonthValid(true);
+      }
+      else{
+        setYearValid(false);
+        setMonthValid(false);
+      }
+  }
+
+  const handleOnBlurCVC = ()=>{
+    if(cardCvc.length === 3){
+      setCvcValid(true);
+    }
+    else{
+      setCvcValid(false);
+    }
+  }
 
   return (
     <div className="form-container">
@@ -69,7 +115,7 @@ export default function CardForm() {
             value={currentCard.value}
             onChange={handleFormChange}
           />
-          <span className="input-error ">Please enter a name</span>
+          <span className={ userValid ? 'hidden' :'input-error'}>Please enter a name</span>
         </div>
         <div className="formfield">
           <label className="formfield__label">Card number</label>
@@ -82,7 +128,7 @@ export default function CardForm() {
             onBeforeInput={numFormat}
             onChange={handleFormChange}
           />
-          <span className="input-error">Wrong format, numbers only</span>
+          <span className={ numberValid ? 'hidden' :'input-error'}>Wrong format, numbers only</span>
         </div>
 
         <div className="formgroup">
@@ -94,10 +140,10 @@ export default function CardForm() {
                 className="formfield__input date"
                 name="month"
                 placeholder="MM"
-                // maxLength="2"
                 value={cardMonth}
                 onBeforeInput={numFormat}
                 onChange={handleFormChange}
+                onBlur = {handleOnFocusOut}
               />
               <input
                 type="text"
@@ -106,10 +152,12 @@ export default function CardForm() {
                 placeholder="YY"
                 maxLength="2"
                 value={currentCard.value}
+                onBeforeInput={numFormat}
                 onChange={handleFormChange}
+                onBlur = {handleOnFocusOut}
               />
             </div>
-            <span className="input-error">Can't be blank</span>
+            <span className={ (monthValid && yearValid) ? 'hidden' :'input-error'}>Can't be blank</span>
           </div>
           <div className="formfield">
             <label className="formfield__label">CVC</label>
@@ -122,8 +170,9 @@ export default function CardForm() {
               value={currentCard.value}
               onBeforeInput={numFormat}
               onChange={handleFormChange}
+              onBlur = {handleOnBlurCVC}
             />
-            <span className="input-error">Can't be blank</span>
+            <span className={ cvcValid ? 'hidden' :'input-error'}>Can't be blank</span>
           </div>
         </div>
         <button type="submit" className="btn btn__black">
