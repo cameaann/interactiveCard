@@ -12,9 +12,9 @@ export default function CardForm() {
   const [cardYear, setCardYear] = useState("");
   const [cardCvc, setCardCvc] = useState("");
 
-  const [formErrors, setFormErrors] = useState({cardUserValid: '', cardNumberValid:'', cardMonthValid:'', cardYearValid:'', cardCVCValid: ''})
-  const [userValid, setUserValid] = useState(true);
-  const [numberValid, setNumberValid] = useState(true);
+  // const [formErrors, setFormErrors] = useState({cardUserValid: '', cardNumberValid:'', cardMonthValid:'', cardYearValid:'', cardCVCValid: ''})
+  const [userValid] = useState(true);
+  const [numberValid] = useState(true);
   const [monthValid, setMonthValid] = useState(true);
   const [yearValid, setYearValid] = useState(true);
   const [cvcValid, setCvcValid] = useState(true);
