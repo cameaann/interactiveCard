@@ -15,21 +15,13 @@ export function formatCardNumber(val) {
   return formatedString;
 }
 
-export function formatCardNumberInput(val, cursorPlace) {
+export function formatCardNumberInput(val) {
   let formattedInput = [];
   let input = [...val];
-  let count = 0;
 
   for (let i = 0; i < 19; i++) {
     if (IsNumber(input[i])) {
       formattedInput.push(input[i]);
-      count += 1;
-    }
-
-    if (count === 4) {
-      formattedInput.push(" ");
-      // cursorPlace += 1;
-      count = 0;
     }
   }
 
@@ -37,7 +29,6 @@ export function formatCardNumberInput(val, cursorPlace) {
 
   return {
     number: formattedInput,
-    cursor: cursorPlace,
   };
 }
 

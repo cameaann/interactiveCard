@@ -4,6 +4,7 @@ import { CurrentCardContext } from "./carddetails";
 import { formatMonth, isValid } from "./formatCardNumber";
 import { formatCardNumberInput } from "./formatCardNumber";
 import { validateCardDateInput } from "./formatCardNumber";
+import { PatternFormat } from 'react-number-format';
 
 export default function CardForm() {
   const { currentCard, setCurrentCard } = useContext(CurrentCardContext);
@@ -42,12 +43,8 @@ export default function CardForm() {
     };
 
     if (name === "cardnumber") {
-      let { number, cursor } = formatCardNumberInput(
-        value,
-        selectionStart
-      );
-      requestAnimationFrame(() =>
-        event.target.setSelectionRange(cursor, cursor)
+      let { number } = formatCardNumberInput(
+        value
       );
 
       setCardNumber(number);
@@ -117,7 +114,7 @@ export default function CardForm() {
           />
           <span className={ userValid ? 'hidden' :'input-error'}>Please enter a name</span>
         </div>
-        <div className="formfield">
+        {/* <div className="formfield">
           <label className="formfield__label">Card number</label>
           <input
             id="cnumber"
@@ -126,6 +123,22 @@ export default function CardForm() {
             placeholder="e.g. 1234 5678 9123 0000"
             value={cardNumber}
             onBeforeInput={numFormat}
+            onChange={handleFormChange}
+          />
+          <span className={ numberValid ? 'hidden' :'input-error'}>Wrong format, numbers only</span>
+        </div> */}
+
+        <div className="formfield">
+          <label className="formfield__label">Card number</label>
+          <PatternFormat
+            id="cnumber"
+            name="cardnumber"
+            className="formfield__input cardnumber"
+            placeholder="e.g. 1234 5678 9123 0000"
+            valueIsNumericString format="#### #### #### ####"
+            mask=" "
+            value={cardNumber}
+            // onBeforeInput={numFormat}
             onChange={handleFormChange}
           />
           <span className={ numberValid ? 'hidden' :'input-error'}>Wrong format, numbers only</span>
