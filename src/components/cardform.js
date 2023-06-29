@@ -35,7 +35,7 @@ export default function CardForm() {
   };
 
   const handleFormChange = (event) => {
-    let { name, value, selectionStart } = event.target;
+    let { name, value } = event.target;
 
     const updatedForm = {
       ...currentCard,
