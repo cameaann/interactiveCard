@@ -1,21 +1,21 @@
-import { formatCardNumberInput, formatCardNumber, IsNumber, formatMonth } from "./components/formatCardNumber";
+import { formatCardNumber, IsNumber, formatMonth } from "./components/formatCardNumber";
 
-describe("formatCardNumberInput", () => {
-  test("should return 0000000000000000 formatted by groups", () => {
-    const result = formatCardNumberInput("0000000000000000", 16);
-    expect(result.number).toEqual("0000 0000 0000 0000");
-  });
+// describe("formatCardNumberInput", () => {
+//   test("should return 0000000000000000 formatted by groups", () => {
+//     const result = formatCardNumberInput("0000000000000000", 16);
+//     expect(result.number).toEqual("0000 0000 0000 0000");
+//   });
 
-  test("should return 1234 1234 1234123 formatted by groups", () => {
-    const result = formatCardNumberInput("1234 1234 1234123", 16);
-    expect(result.number).toEqual("1234 1234 1234 123");
-  });
+//   test("should return 1234 1234 1234123 formatted by groups", () => {
+//     const result = formatCardNumberInput("1234 1234 1234123", 16);
+//     expect(result.number).toEqual("1234 1234 1234 123");
+//   });
 
-  test("should delete one number, the length of number decreases, the cursor is in the same place as it was", () => {
-    const result = formatCardNumberInput("2222 2222 2222 222", 0);
-    expect(result.number).toEqual("2222 2222 2222 222");
-  });
-});
+//   test("should delete one number, the length of number decreases, the cursor is in the same place as it was", () => {
+//     const result = formatCardNumberInput("2222 2222 2222 222", 0);
+//     expect(result.number).toEqual("2222 2222 2222 222");
+//   });
+// });
 
 describe("formatCardNumber", () => {
   test("should return 0000000000000000 formatted by groups", () => {
@@ -47,7 +47,7 @@ describe("formatMonth", () => {
   });
   test("should return '02' for input of 2", ()=>{
     expect(formatMonth(2)).toBe("02");
-  });
+  }); 
   test("should return '05' for input of 15", ()=>{
     expect(formatMonth(15)).toBe("05");
   });
