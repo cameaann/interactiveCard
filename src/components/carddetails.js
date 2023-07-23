@@ -3,11 +3,13 @@ import { createContext, useState } from "react";
 import CardForm from "./cardform";
 import FrontCard from "./frontcard";
 import BackCard from "./backcard";
+// import SuccessRegistration from "./successRegistration";
 
 export const CurrentCardContext = createContext(null);
 
 export default function CardDetails() {
   //   const [currentCard, setCurrentCard] = useState(null);
+
   const [currentCard, setCurrentCard] = useState({
     cardholder: "Jane Appleseed",
     cardnumber: "0000 0000 0000 0000",
@@ -27,6 +29,7 @@ export default function CardDetails() {
         <FrontCard card={currentCard} />
         <div className="leftside"></div>
         <CardForm />
+        {/* <div>{showSuccess ? <SuccessRegistration/> : null }</div>/ */}
         <BackCard card={currentCard} />
       </div>
     </CurrentCardContext.Provider>

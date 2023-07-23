@@ -47,6 +47,10 @@ body{
     position: relative;
     display: flex;
     height: 100vh;
+
+    @include response(phone){
+        flex-direction: column;
+    }
 }
 .leftside{
     // width:20rem;

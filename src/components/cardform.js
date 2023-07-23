@@ -1,4 +1,4 @@
-import React from "react";
+// import React, { useEffect } from "react";
 import { useState, useContext } from "react";
 import { CurrentCardContext } from "./carddetails";
 import { formatMonth, isValid } from "./formatCardNumber";
@@ -6,12 +6,14 @@ import { formatCardNumberInput } from "./formatCardNumber";
 import { validateCardDateInput } from "./formatCardNumber";
 import { PatternFormat } from 'react-number-format';
 
+
 export default function CardForm() {
   const { currentCard, setCurrentCard } = useContext(CurrentCardContext);
   const [cardNumber, setCardNumber] = useState("");
   const [cardMonth, setCardMonth] = useState("");
   const [cardYear, setCardYear] = useState("");
   const [cardCvc, setCardCvc] = useState("");
+  const [showForm, setShowForm] = useState(true);
 
   // const [formErrors, setFormErrors] = useState({cardUserValid: '', cardNumberValid:'', cardMonthValid:'', cardYearValid:'', cardCVCValid: ''})
   const [userValid] = useState(true);
@@ -22,7 +24,37 @@ export default function CardForm() {
 
   // const { submitted, setSubmitted } = useState(false);
 
-  const handleSubmit = () => {};
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log(event.target);
+    setShowForm(false);
+
+
+  };
+
+  // const fetchDataPost = (details)=>{
+  //   return  fetch('https://git.heroku.com/json-file-hosting.git', {
+  //     method: 'POST',
+  //     body: JSON.stringify({details}),
+  //     headers:{
+  //       "Content-type": "application/json; charset=UTF-8",
+  //     },
+  //   })
+  //   .then((response)=> response.json())
+  //   .then((data)=> {
+  //     console.log(data);
+  //     setShowSuccess(true);
+
+  //   })
+  //   .catch((err)=> {
+  //     console.log(err.message);
+  //     setShowSuccess(true);
+  //   })
+
+  // }
+
+
 
   const numFormat = (e) => {
     let val = e.data;
@@ -102,6 +134,7 @@ export default function CardForm() {
 
   return (
     <div className="form-container">
+      { showForm ?
       <form className="cardform" onSubmit={handleSubmit}>
         <div className="formfield">
           <label className="formfield__label">Cardholder name</label>
@@ -114,19 +147,6 @@ export default function CardForm() {
           />
           <span className={ userValid ? 'hidden' :'input-error'}>Please enter a name</span>
         </div>
-        {/* <div className="formfield">
-          <label className="formfield__label">Card number</label>
-          <input
-            id="cnumber"
-            name="cardnumber"
-            className="formfield__input cardnumber"
-            placeholder="e.g. 1234 5678 9123 0000"
-            value={cardNumber}
-            onBeforeInput={numFormat}
-            onChange={handleFormChange}
-          />
-          <span className={ numberValid ? 'hidden' :'input-error'}>Wrong format, numbers only</span>
-        </div> */}
 
         <div className="formfield">
           <label className="formfield__label">Card number</label>
@@ -191,7 +211,15 @@ export default function CardForm() {
         <button type="submit" className="btn btn__black">
           Confirm
         </button>
-      </form>
+      </form>:  <div className="successBox">
+            <div className="successCircle"></div>
+            <div className="successMessage_big">thank you!</div>
+            <div className="successMessage_small">We've added your card details.</div>
+            <button type="submit" className="btn btn__black success">
+                Continue
+            </button>
+        </div> }
+
     </div>
   );
 }
