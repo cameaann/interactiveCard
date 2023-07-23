@@ -45,11 +45,13 @@ body{
 
 .main{
     position: relative;
-    display: flex;
+    display: grid;
+    grid-template-columns: 30% 70%;
     height: 100vh;
 
+   
     @include response(phone){
-        flex-direction: column;
+        grid-template-columns: 100%;
     }
 }
 .leftside{

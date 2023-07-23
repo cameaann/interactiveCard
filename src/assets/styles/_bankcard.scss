@@ -23,10 +23,27 @@
     &__header{
         margin-bottom: 6rem;
         width:10rem;
+
+        @include response(tab-port){
+            margin-bottom: 6rem*.8;
+        }
+
+            @include response(phone){
+                margin-bottom: 6rem*.7;
+            }
            }
     &__main{
         margin-bottom: 3rem;
         display: flex;
+
+        @include response(tab-port){
+            margin-bottom: 1.4rem;
+        }
+
+        @include response(phone){
+            margin-bottom: 1rem;
+        }
+
     }
     &__footer{
         display: flex;
@@ -36,12 +53,45 @@
         &-name{
             text-transform: uppercase;
 
+            @include response(tab-port){
+                font-size: 1.6rem;
+            }
+
+            @include response(phone){
+                font-size: 1.2rem;
+            }
         }
         &-date{
             display: flex;
-        }
 
+            @include response(tab-port){
+                font-size: 1.6rem;
+            }
+
+            @include response(phone){
+                font-size: 1.2rem;
+            }
+        }
     }
+
+    @include response(tab-land){
+        left:4%;
+    }
+
+    @include response(tab-port){
+        left:4%;
+        width: 35.5rem*.8;
+        height: 17.5rem*.8;
+        padding: 3rem*.8;
+    }
+
+
+    @include response(phone){
+        width: 35.5rem*.7;
+        height: 17.5rem*.7;
+        padding: 3rem*.7;
+        top:16%;
+   }
 }
 .logobox{
     display: flex;
@@ -62,10 +112,10 @@
 
 .logoExtra{
     display: block;
-        width:1.5rem;
-        height:1.5rem;
-        border-radius: 50%;
-        border: 1px solid $white;
+    width:1.5rem;
+    height:1.5rem;
+    border-radius: 50%;
+    border: 1px solid $white;
 }
 
 .numbergroup{
@@ -76,6 +126,19 @@
     &-number{
         margin-right: 2.5px;
     }
+    @include response(tab-port){
+        margin-right:0;
+        font-size: 2rem;
+        letter-spacing: 1.2px;
+
+    }
+    @include response(phone){
+        margin-right:0;
+        font-size: 2rem;
+        letter-spacing: 1.2px;
+
+    }
+
 }
 
 .backcard{
@@ -96,12 +159,38 @@
     -webkit-box-shadow: 5px 21px 55px 17px rgba(5,5,5,0.13);
     -moz-box-shadow: 5px 21px 55px 17px rgba(5,5,5,0.13);
     box-shadow: 5px 21px 55px 17px rgba(5,5,5,0.13);
-    
+
     &__cvc{
         display: block;
         position: absolute;
         top: 44%;
         right:10%;
         letter-spacing: 1.5px;
+
+        @include response(tab-port){
+            font-size: 1.4rem;
+        }
+
+        @include response(phone){
+            font-size: 1.2rem;
+        }
     }
+    @include response(tab-land){
+        left:8%;
+    }
+
+    @include response(tab-port){
+        left:8%;
+        width: 35.5rem*.8;
+        height: 17.5rem*.8;
+        padding: 3rem*.8;
+    }
+
+    @include response(phone){
+        top:5%;
+        left:30%;
+        width: 35.5rem*.7;
+        height: 17.5rem*.7;
+        padding: 3rem*.7;
+   }
 }
