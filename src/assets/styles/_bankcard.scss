@@ -134,7 +134,13 @@
     }
     @include response(phone){
         margin-right:0;
-        font-size: 2rem;
+        font-size:2rem;
+        letter-spacing: 1.2px;
+
+    }
+    @include response(phone-mini){
+        margin-right:0;
+        font-size:1.8rem;
         letter-spacing: 1.2px;
 
     }
