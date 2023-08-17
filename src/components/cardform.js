@@ -158,7 +158,6 @@ export default function CardForm() {
             valueIsNumericString format="#### #### #### ####"
             mask=" "
             value={cardNumber}
-            // onBeforeInput={numFormat}
             onChange={handleFormChange}
           />
           <span className={ numberValid ? 'hidden' :'input-error'}>Wrong format, numbers only</span>
