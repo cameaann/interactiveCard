@@ -128,7 +128,8 @@ export default function BankForm() {
             <label className="formfield__label">Exp. date (mm/yy)</label>
             <div className="formfield__group">
               <input
-                type="number"
+                type="text"
+                pattern="\d*"
                 className="formfield__input date"
                 name="month"
                 placeholder="MM"
@@ -156,10 +157,12 @@ export default function BankForm() {
               />
 
               <input
-                type="number"
+                type="text"
+                pattern="\d*"
                 className="formfield__input date"
                 name="year"
                 placeholder="YY"
+                minLength="2"
                 maxLength="2"
                 onBeforeInput={numberFormat}
                 {...register("year", {
@@ -167,6 +170,8 @@ export default function BankForm() {
                     handleOnChange(e);
                   },
                   required: true,
+                  minLength: 2,
+                  maxLength: 2,
                   validate: {
                     checkDate: (value) => {
                       let month = getValues("month");
@@ -193,14 +198,17 @@ export default function BankForm() {
           <div className="formfield">
             <label className="formfield__label">CVC</label>
             <input
-              type="number"
+              type="text"
+              pattern="\d*"
               className="formfield__input cvc"
               name="cvc"
               placeholder="e.g. 123"
+              minLength="3"
               maxLength="3"
               onBeforeInput={numberFormat}
               {...register("cvc", {
                 minLength: 3,
+                maxLength: 3,
                 onChange: (e) => {
                   handleOnChange(e);
                 },
@@ -222,7 +230,7 @@ export default function BankForm() {
         </button>
       </form> : <div className="successBox">
             <div className="successCircle">
-              <i className="icon-check success-icon"></i>
+              <span className="icon-check success-icon"></span>
             </div>
             <div className="successMessage_big">thank you!</div>
             <div className="successMessage_small">We've added your card details.</div>
