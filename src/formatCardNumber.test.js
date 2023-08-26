@@ -47,7 +47,7 @@ describe("formatMonth", () => {
   });
   test("should return '02' for input of 2", ()=>{
     expect(formatMonth(2)).toBe("02");
-  }); 
+  });
   test("should return '05' for input of 15", ()=>{
     expect(formatMonth(15)).toBe("05");
   });
@@ -61,6 +61,6 @@ describe("formatMonth", () => {
     expect(formatMonth('111')).toBe("11");
   });
   test("should return '' for input of '0'", ()=>{
-    expect(formatMonth('00')).toBe("0");
+    expect(formatMonth('00')).toBe("");
   })
 })

@@ -1,40 +1,65 @@
-import { Controller, useForm } from "react-hook-form";
+import * as React from "react";
+import { useRef, useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { useContext } from "react";
 import { CurrentCardContext } from "./carddetails";
-import { PatternFormat } from "react-number-format";
+import { PatternNumber } from "./pattern-number";
 import { formatCardNumberInput } from "./formatCardNumber";
+import { formatMonth } from "./formatCardNumber";
+import { validateCardDateInput } from "./formatCardNumber";
+import { numberFormat } from "./formatCardNumber";
+import { checkCardNumberInput } from "./formatCardNumber";
 
 export default function BankForm() {
   const { currentCard, setCurrentCard } = useContext(CurrentCardContext);
+  const [showForm, setShowForm] = useState(true);
+
   const {
-    control,
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm({mode: "onBlur"});
+    setValue,
+    getValues,
+    control,
+    formState: { errors, isDirty, isValid  },
+  } = useForm({
+    mode: "all",
+  });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  let ref = useRef();
+
+  const onSubmit = async () => {
+    // async request which may result error
+    // event.preventDefault();
+    try {
+      // await fetch()
+
+      console.log();
+      setShowForm(false);
+
+    } catch (event) {
+      // handle your error
+    }
   };
 
   const handleOnChange = (event) => {
     let { name, value } = event.target;
 
-    const updatedForm = {
+    let updatedForm = {
       ...currentCard,
       [name]: value,
     };
+    if (name === "cardnumber") {
+      let { number } = formatCardNumberInput(value);
+      updatedForm[name] = number.replaceAll(" ", "");
+    }
+
     setCurrentCard(updatedForm);
-    console.log(updatedForm);
   };
 
-  const handleOnFocusOut = () => {
-
-    console.log("Blur");
-  };
 
   return (
     <div className="form-container">
+      { showForm ?
       <form className="cardform" onSubmit={handleSubmit(onSubmit)}>
         <div className="formfield">
           <label className="formfield__label">Cardholder name</label>
@@ -44,47 +69,58 @@ export default function BankForm() {
             className="formfield__input"
             placeholder="e.g. Jane Appleseed"
             {...register("cardholder", {
+              minLength: 1,
               onChange: (e) => {
                 handleOnChange(e);
               },
-              onBlur: () => {
-                handleOnFocusOut();
-              },
-              required: "The name is required.",
+              required: true,
             })}
+            aria-invalid={errors.cardholder ? "true" : "false"}
           />
-          {errors.cardholder && (
-            <p className="input-error">{errors.cardholder.message}</p>
+          {errors.cardholder?.type === "required" && (
+            <p role="alert" className="input-error">The name is required</p>
           )}
         </div>
 
         <div className="formfield">
           <label className="formfield__label">Card number</label>
           <Controller
-            render={({ fields }) => (
-              <PatternFormat
-                id="cnumber"
-                name="cardnumber"
-                className="formfield__input cardnumber"
-                placeholder="e.g. 1234 5678 9123 0000"
-                valueIsNumericString
-                format="#### #### #### ####"
-                mask=" "
-                required
-                onValueChange={(v, t) => {
-                  handleOnChange(t.event);
-                }}
-                onBlur={handleOnFocusOut}
-
-                {...fields}
-              />
-            )}
             name="cardnumber"
             control={control}
+            value=''
+            rules={{ required: true,
+                validate: {
+                    checkLength: () => checkCardNumberInput(getValues("cardnumber"))}
+             }}
+            render={({ field: { onChange, onBlur, e } }) => (
+              <>
+                <PatternNumber
+                  getInputRef={ref}
+                  id="cnumber"
+                  name="cardnumber"
+                  className="formfield__input cardnumber"
+                  placeholder="e.g. 1234 5678 9123 0000"
+                  valueIsNumericString
+                  format="#### #### #### ####"
+                  mask=" "
+                  onChange={(e) => {
+                    onChange(e);
+                    handleOnChange(e);
+                  }}
+                  onBlur={(e) => {
+                    onBlur(e);
+                  }}
+                  aria-invalid={errors.cardnumber ? "true" : "false"}
+                />
+                {errors.cardnumber?.type === "required" && (
+                  <p role="alert" className="input-error">Card number is required</p>
+                )}
+                {errors.cardnumber?.type === "checkLength" && (
+                  <p role="alert" className="input-error">Enter the full card number</p>
+                )}
+              </>
+            )}
           />
-          {errors.cardnumber && (
-            <p className="input-error">Can't be blank.</p>
-          )}
         </div>
 
         <div className="formgroup">
@@ -96,16 +132,24 @@ export default function BankForm() {
                 className="formfield__input date"
                 name="month"
                 placeholder="MM"
+                onBeforeInput={numberFormat}
                 {...register("month", {
                   onChange: (e) => {
+                    setValue("month", formatMonth(e.target.value));
                     handleOnChange(e);
-                  },
-                  onBlur: (e) => {
-                    handleOnFocusOut(e);
                   },
                   required: true,
                   validate: {
-                    checkMonth: (value) => value.length > 0,
+                    checkMonth: (value) => value.length > 1,
+                    checkDate: (value) => {
+                        let year = getValues("year");
+                        if(value.length<=1){
+                          return;
+                        }
+                          let cardDate = { month: value, year: year };
+                          let valid = validateCardDateInput(cardDate);
+                          return valid;
+                        },
                   },
                 })}
                 aria-invalid={errors.month ? "true" : "false"}
@@ -117,28 +161,75 @@ export default function BankForm() {
                 name="year"
                 placeholder="YY"
                 maxLength="2"
+                onBeforeInput={numberFormat}
                 {...register("year", {
                   onChange: (e) => {
                     handleOnChange(e);
                   },
-                  onBlur: (e) => {
-                    handleOnFocusOut(e);
-                  },
                   required: true,
                   validate: {
-                    checkYear: (value) => value.length > 0,
+                    checkDate: (value) => {
+                      let month = getValues("month");
+                      let cardDate = { month: month, year: value };
+                      let valid = validateCardDateInput(cardDate);
+                      return valid;
+                    },
                   },
                 })}
                 aria-invalid={errors.year ? "true" : "false"}
               />
             </div>
-            {(errors.month?.type === "required" || errors.year?.type === "required") && (
-              <p className="input-error">Can't be blank.</p>
+            {(errors.month?.type === "required" ||
+              errors.year?.type === "required") && (
+              <p role="alert" className="input-error">Can't be blank.</p>
             )}
-            {/* <span className={ (monthValid && yearValid) ? 'hidden' :'input-error'}>Can't be blank</span> */}
+            { (errors.month?.type === "checkDate" && errors.year?.type === "checkDate") && (
+              <p role="alert" className="input-error">
+                The card date is expired.
+              </p>
+            )}
+          </div>
+
+          <div className="formfield">
+            <label className="formfield__label">CVC</label>
+            <input
+              type="text"
+              className="formfield__input cvc"
+              name="cvc"
+              placeholder="e.g. 123"
+              maxLength="3"
+              onBeforeInput={numberFormat}
+              {...register("cvc", {
+                minLength: 3,
+                onChange: (e) => {
+                  handleOnChange(e);
+                },
+                required: true,
+              })}
+              aria-invalid={errors.cvc ? "true" : "false"}
+            />
+            {errors.cvc?.type === "required" && (
+              <p role="alert" className="input-error">Can't be blank</p>
+            )}
+            {errors.cvc?.type === "minLength" && (
+              <p role="alert" className="input-error">Should be 3 numbers</p>
+            )}
           </div>
         </div>
-      </form>
+
+        <button type="submit" className="btn btn__black" disabled = { !isDirty || !isValid}>
+          Confirm
+        </button>
+      </form> : <div className="successBox">
+            <div className="successCircle"></div>
+            <div className="successMessage_big">thank you!</div>
+            <div className="successMessage_small">We've added your card details.</div>
+            <button type="submit" className="btn btn__black success">
+                Continue
+            </button>
+        </div>
+
+      }
     </div>
   );
 }

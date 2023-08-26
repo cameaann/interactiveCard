@@ -1,15 +1,12 @@
 import React from "react";
 import { createContext, useState } from "react";
-// import CardForm from "./cardform";
 import BankForm from "./bankform";
 import FrontCard from "./frontcard";
 import BackCard from "./backcard";
-// import SuccessRegistration from "./successRegistration";
 
 export const CurrentCardContext = createContext(null);
 
 export default function CardDetails() {
-  //   const [currentCard, setCurrentCard] = useState(null);
 
   const [currentCard, setCurrentCard] = useState({
     cardholder: "Jane Appleseed",
@@ -29,7 +26,6 @@ export default function CardDetails() {
       <div className="main">
         <FrontCard card={currentCard} />
         <div className="leftside"></div>
-        {/* <CardForm /> */}
         <BankForm />
         <BackCard card={currentCard} />
       </div>

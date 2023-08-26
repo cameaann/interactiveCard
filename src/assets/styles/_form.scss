@@ -118,7 +118,14 @@
         width: 100%;
         padding: 1.5rem;
     }
+
+    &:disabled, &[disabled]{
+        cursor: auto;
+        background-color: $veryDarkViolet;
+    }
 }
+
+
 
 // SUCCESS BOX
 .successBox{

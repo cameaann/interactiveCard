@@ -1,10 +1,11 @@
 // import React, { useEffect } from "react";
 import { useState, useContext } from "react";
 import { CurrentCardContext } from "./carddetails";
-import { formatMonth, isValid } from "./formatCardNumber";
+import { formatMonth, isValid, numFormat } from "./formatCardNumber";
 import { formatCardNumberInput } from "./formatCardNumber";
 import { validateCardDateInput } from "./formatCardNumber";
 import { PatternFormat } from 'react-number-format';
+import { numberFormat } from "./formatCardNumber";
 
 
 export default function CardForm() {
@@ -29,8 +30,6 @@ export default function CardForm() {
 
     console.log(event.target);
     setShowForm(false);
-
-
   };
 
   // const fetchDataPost = (details)=>{
@@ -56,15 +55,6 @@ export default function CardForm() {
 
 
 
-  const numFormat = (e) => {
-    let val = e.data;
-
-    let re = /^\d+$/;
-    if (!val.match(re)) {
-      console.log("Wrong format, numbers only");
-      e.preventDefault();
-    }
-  };
 
   const handleFormChange = (event) => {
     let { name, value } = event.target;
@@ -173,7 +163,7 @@ export default function CardForm() {
                 name="month"
                 placeholder="MM"
                 value={cardMonth}
-                onBeforeInput={numFormat}
+                onBeforeInput={numberFormat}
                 onChange={handleFormChange}
                 onBlur = {handleOnFocusOut}
               />
@@ -184,7 +174,7 @@ export default function CardForm() {
                 placeholder="YY"
                 maxLength="2"
                 value={currentCard.value}
-                onBeforeInput={numFormat}
+                onBeforeInput={numberFormat}
                 onChange={handleFormChange}
                 onBlur = {handleOnFocusOut}
               />

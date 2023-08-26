@@ -120,8 +120,9 @@
 
 .numbergroup{
     display:flex;
-    margin-right:2rem;
+    // margin-right:2rem;
     font-size: 3.2rem;
+    font-family: "Space Grotesk";
 
     &-number{
         margin-right: 2.5px;
@@ -129,19 +130,13 @@
     @include response(tab-port){
         margin-right:0;
         font-size: 2rem;
-        letter-spacing: 1.2px;
+        letter-spacing: 1px;
 
     }
     @include response(phone){
         margin-right:0;
-        font-size:2rem;
-        letter-spacing: 1.2px;
-
-    }
-    @include response(phone-mini){
-        margin-right:0;
         font-size:1.8rem;
-        letter-spacing:0;
+        letter-spacing: 1.2px;
 
     }
 

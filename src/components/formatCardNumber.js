@@ -1,3 +1,15 @@
+export const numberFormat = (e) => {
+  let val = e.data;
+
+  let re = /^\d+$/;
+  if (!val.match(re)) {
+    console.log("Wrong format, numbers only");
+    e.preventDefault();
+  }
+};
+
+
+
 export function formatCardNumber(val) {
   let newStr = val;
 
@@ -55,7 +67,6 @@ export function isValid(name, value) {
 }
 
 export function formatMonth(val) {
-
   if (val.length > 2) {
     val = val.substr(1);
   }
@@ -69,7 +80,11 @@ export function formatMonth(val) {
   }
   if (mon > 12 && mon % 10 !== 0) {
     return "0" + (mon % 10);
-  } else {
+  }
+  if(mon === 0){
+    return "";
+  }
+  else {
     return mon.toString();
   }
 }
@@ -82,16 +97,21 @@ export function validateCardDateInput(dateValue) {
   let cardDate;
   cardDate = new Date();
   today = new Date();
-  cardDate.setFullYear("20" + dateValue.year, dateValue.month, 1);
-  console.log(cardDate);
+  cardDate.setFullYear(2000 + Number(dateValue.year), dateValue.month, 1);
 
   if (cardDate < today) {
-    console.log(
-      "The expiry date is before today's date. Please select a valid expiry date"
-    );
     return false;
   } else {
-    console.log("Date is valid");
     return true;
   }
+}
+
+export function checkCardNumberInput(value){
+  let num = value.trim();
+      if(num.length<19){
+        return false;
+      }else{
+        return true;
+      }
+
 }
