@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     padding: 3rem;
-    top:18%;
+    top:12%;
     left:8%;
     width: 35.5rem;
     height: 17.5rem;
@@ -33,7 +33,7 @@
             }
            }
     &__main{
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
         display: flex;
 
         @include response(tab-port){
@@ -123,6 +123,7 @@
     // margin-right:2rem;
     font-size: 3.2rem;
     font-family: "Space Grotesk";
+    font-weight: 400;
 
     &-number{
         margin-right: 2.5px;

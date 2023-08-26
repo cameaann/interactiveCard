@@ -39,19 +39,17 @@ body{
     font-weight: 500;
 }
 
-.container-wrapper{
-
-}
-
 .main{
     position: relative;
     display: grid;
     grid-template-columns: 30% 70%;
     height: 100vh;
 
-   
+
     @include response(phone){
         grid-template-columns: 100%;
+        grid-template-rows: 37% 63%;
+        height: 90vh;
     }
 }
 .leftside{
@@ -59,5 +57,9 @@ body{
     flex-basis: 33.33%;
     background-image: url('../images/bg-main-desktop.png');
     background-repeat: no-repeat;
+
+    @include response(phone){
+        height:25rem;
+    }
 }
 
