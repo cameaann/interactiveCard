@@ -128,7 +128,7 @@ export default function BankForm() {
             <label className="formfield__label">Exp. date (mm/yy)</label>
             <div className="formfield__group">
               <input
-                type="text"
+                type="number"
                 className="formfield__input date"
                 name="month"
                 placeholder="MM"
@@ -156,7 +156,7 @@ export default function BankForm() {
               />
 
               <input
-                type="text"
+                type="number"
                 className="formfield__input date"
                 name="year"
                 placeholder="YY"
@@ -193,7 +193,7 @@ export default function BankForm() {
           <div className="formfield">
             <label className="formfield__label">CVC</label>
             <input
-              type="text"
+              type="number"
               className="formfield__input cvc"
               name="cvc"
               placeholder="e.g. 123"
@@ -221,7 +221,9 @@ export default function BankForm() {
           Confirm
         </button>
       </form> : <div className="successBox">
-            <div className="successCircle"></div>
+            <div className="successCircle">
+              <i className="icon-check success-icon"></i>
+            </div>
             <div className="successMessage_big">thank you!</div>
             <div className="successMessage_small">We've added your card details.</div>
             <button type="submit" className="btn btn__black success">
