@@ -8,8 +8,6 @@ export const numberFormat = (e) => {
   }
 };
 
-
-
 export function formatCardNumber(val) {
   let newStr = val;
 
@@ -81,37 +79,38 @@ export function formatMonth(val) {
   if (mon > 12 && mon % 10 !== 0) {
     return "0" + (mon % 10);
   }
-  if(mon === 0){
+  if (mon === 0) {
     return "";
-  }
-  else {
+  } else {
     return mon.toString();
   }
 }
 
 export function validateCardDateInput(dateValue) {
-  if (dateValue.month === "" || dateValue.year === "") {
+
+  if (dateValue.month.length === 0 || dateValue.year.length === 0) {
     return false;
   }
-  let today;
-  let cardDate;
-  cardDate = new Date();
-  today = new Date();
-  cardDate.setFullYear(2000 + Number(dateValue.year), dateValue.month, 1);
 
-  if (cardDate < today) {
+    let today;
+    let cardDate;
+    cardDate = new Date();
+    today = new Date();
+
+    cardDate.setFullYear(2000 + Number(dateValue.year), dateValue.month, 1);
+    if (cardDate < today) {
+      return false;
+    } else {
+      return true;
+    }
+
+}
+
+export function checkCardNumberInput(value) {
+  let num = value.trim();
+  if (num.length < 19) {
     return false;
   } else {
     return true;
   }
-}
-
-export function checkCardNumberInput(value){
-  let num = value.trim();
-      if(num.length<19){
-        return false;
-      }else{
-        return true;
-      }
-
 }

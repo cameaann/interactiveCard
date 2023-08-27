@@ -16,6 +16,10 @@ describe("validateCardDateInput", () => {
     const result = validateCardDateInput(dateVal);
     expect(result).toBe(false);
   });
-
+  test("should return false if the date is greater than today", () => {
+    let dateVal = { year:'5', month:'02'}
+    const result = validateCardDateInput(dateVal);
+    expect(result).toBe(false);
+  });
 
 });
