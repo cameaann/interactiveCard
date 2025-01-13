@@ -57,9 +57,11 @@ body{
     flex-basis: 33.33%;
     background-image: url('../images/bg-main-desktop.png');
     background-repeat: no-repeat;
+    background-size: cover;
 
     @include response(phone){
         height:25rem;
+        background-size: cover;
     }
 }
 

@@ -79,7 +79,7 @@
     }
 
     @include response(tab-port){
-        left:4%;
+        left:3%;
         width: 35.5rem*.8;
         height: 17.5rem*.8;
         padding: 3rem*.8;
@@ -149,7 +149,7 @@
     flex-direction: column;
     padding: 3rem;
     top:48%;
-    left:17%;
+    left:12%;
     width: 35.5rem;
     height: 17.5rem;
     background-image: url('../images/bg-card-back.png');
@@ -178,11 +178,13 @@
         }
     }
     @include response(tab-land){
-        left:8%;
+        left:4%;
+        top:40%
     }
 
     @include response(tab-port){
-        left:8%;
+        left:3%;
+        top:40%;
         width: 35.5rem*.8;
         height: 17.5rem*.8;
         padding: 3rem*.8;
