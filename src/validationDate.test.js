@@ -7,7 +7,7 @@ describe("validateCardDateInput", () => {
     expect(result).toBe(false);
   });
   test("should return true if the date is greater than today one", () => {
-    let dateVal = { year:'24', month:'02'}
+    let dateVal = { year:'99', month:'02'}
     const result = validateCardDateInput(dateVal);
     expect(result).toBe(true);
   });
